@@ -24,8 +24,7 @@ def update_tasks():
     if option == "1":
         update_status()
     elif option == "2":
-        print("This will remove task")
-
+        remove_task()
 def update_status():
     view_tasks()
     
@@ -42,6 +41,22 @@ def update_status():
         tasks[task_selection - 1][4] = "On going"
 
     print(f"You have updated the task {tasks[task_selection - 1][0]}")
+
+def remove_task():
+    view_tasks()
+
+    task_selection = int(input("Select task number to remove or 0 to exit: "))
+    
+    if task_selection == 0:
+        return
+    
+    task_selection_confrim = input(f"Are you sure you want to remove the task {tasks[task_selection - 1][0]} Y/N: ")
+    
+    if task_selection_confrim == "Y" or task_selection_confrim == "y":
+        tasks.pop(task_selection - 1)
+        print("You have successfully removed the task!")
+    elif task_selection_confrim == "N" or task_selection_confrim == 'n':
+        print("You have selected to not remove the task!")
 
 
 tasks = [] 
