@@ -10,8 +10,10 @@ def add_task():
     return task
 
 def view_tasks():
-    for task in tasks:
-        for x in task:
+    i = 0
+    for i in range(len(tasks)):
+        print(i, end=' ')
+        for x in tasks[i]:
             print(x, end=' ')
         print()
 
@@ -19,20 +21,24 @@ def update_tasks():
     view_tasks()
     
     print("1. Update status\n.2 Remove task")
-    option = input(print("What update woukld you like to do: ", end=' '))
+    option = input("What update woukld you like to do: ")
 
     if option == "1":
         print("This will update status")
     elif option == "2":
         print("This will remove task")
 
+def update_status():
+    view_tasks()
+
+
 tasks = [] 
 is_exit = False
 
 while not is_exit:
     print("Welcome to the to-do list app!")
-    print("What would you like to do today?")                                                   
-    option = input("1. add new task\n2. View tasks\n3. Update task\n4. Exit\n")  
+    print("1. add new task\n2. View tasks\n3. Update task\n4. Exit\n")  
+    option = input("What would you like to do today: ")                                                   
 
     if option == "1":                                                                  
         tasks.append(add_task())                                                            
@@ -45,3 +51,4 @@ while not is_exit:
         is_exit = True
 
 print(tasks)
+
