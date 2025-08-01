@@ -10,26 +10,38 @@ def add_task():
     return task
 
 def view_tasks():
-    i = 0
     for i in range(len(tasks)):
-        print(i, end=' ')
+        print(i + 1, end=' ')
         for x in tasks[i]:
             print(x, end=' ')
         print()
 
 def update_tasks():
-    view_tasks()
     
     print("1. Update status\n.2 Remove task")
     option = input("What update woukld you like to do: ")
 
     if option == "1":
-        print("This will update status")
+        update_status()
     elif option == "2":
         print("This will remove task")
 
 def update_status():
     view_tasks()
+    
+    task_selection = int(input("Select task number to chnage status: "))
+    status_update = input("Select new status update\n1. Completed\n2. Abandoned\n3. Paused\n4. On going")
+
+    if status_update == "1":
+        tasks[task_selection - 1][4] = "Completed"
+    elif status_update == "2":
+        tasks[task_selection - 1][4] = "Abandoned"
+    elif status_update == "3":
+        tasks[task_selection - 1][4] = "Paused" 
+    elif status_update =="4":
+        tasks[task_selection - 1][4] = "On going"
+
+    print(f"You have updated the task {tasks[task_selection - 1][0]}")
 
 
 tasks = [] 
