@@ -19,7 +19,7 @@ def view_tasks():
 def update_tasks():
     
     print("1. Update status\n.2 Remove task")
-    option = input("What update woukld you like to do: ")
+    option = input("What update would you like to do: ")
 
     if option == "1":
         update_status()
@@ -28,8 +28,8 @@ def update_tasks():
 def update_status():
     view_tasks()
     
-    task_selection = int(input("Select task number to chnage status: "))
-    status_update = input("Select new status update\n1. Completed\n2. Abandoned\n3. Paused\n4. On going")
+    task_selection = int(input("Select task number to change status: "))
+    status_update = input("Select new status update\n1. Completed\n2. Abandoned\n3. Paused\n4. On going\n")
 
     if status_update == "1":
         tasks[task_selection - 1][4] = "Completed"
@@ -62,20 +62,17 @@ def remove_task():
 tasks = [] 
 is_exit = False
 
+print("Welcome to the to-do list app!")
+
 while not is_exit:
-    print("Welcome to the to-do list app!")
     print("1. add new task\n2. View tasks\n3. Update task\n4. Exit\n")  
     option = input("What would you like to do today: ")                                                   
 
     if option == "1":                                                                  
         tasks.append(add_task())                                                            
-        print(type(tasks))
     elif option == "2":
         view_tasks()
     elif option == "3":
         update_tasks()
     elif option == "4":
         is_exit = True
-
-print(tasks)
-
