@@ -59,7 +59,7 @@ def remove_task():
         print("You have selected to not remove the task!")
 
 
-tasks = [] 
+tasks = []
 is_exit = False
 
 print("Welcome to the to-do list app!")
