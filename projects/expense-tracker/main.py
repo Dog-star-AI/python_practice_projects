@@ -40,6 +40,12 @@ def sign_up():
             print("*******************************************************")
             print("*Congratulations!! Youre now part of the Mongol Family*")
             print("*******************************************************")
+            users[name] = password
+
+            #update database 
+            with open("users.json", "w") as f:
+                json.dump(users, f, indent=4)
+
             attempts = 4
             
 
