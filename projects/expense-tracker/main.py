@@ -1,14 +1,61 @@
 #Expense Tracking system
 import json
 
-def user_options(is_done):
-    option = int(input("How can we help you today?\n1.View expenses\n2.Add new expense\n3.Remove expense\4.Update budget\n5.Change passoword\n6.Remove account\n"))
+def user_menu(is_done, name):
+    option = int(input("How can we help you today?\n1.View expenses\n2.Add new expense\n3.Remove expense\n4.Update budget\n5.Change password\n6.Remove account\n7.Exit\n"))
+
+    match option:
+        case 1:
+            view_expense(name)
+            return is_done
+        case 2:
+            add_expense(name)
+            return is_done
+        case 3:
+            remove_expense(name)
+            return is_done
+        case 4:
+            update_budget(name)
+            return is_done           
+        case 5:
+            change_password(name)
+            return is_done
+        case 6:
+            remove_account(name)
+            return is_done
+        case 7:
+            return not is_done
+
+
+def view_expense(name):
+    print("This will view expenses")
+
+def add_expense(name):
+    print("This will add new expenses")
+
+def remove_expense(name):
+    print("This will remove the expenses")
+
+def update_budget(name):
+    print("This will update budget")
+
+def change_password(name):
+    print("This will change the password")
+
+def remove_account(name):
+    
+    users.pop(name)
+
+    #update database
+    with open("users.json", "w") as f:
+        json.dump(users, f, indent=4)
+
 
 def log_in():
     attempts = 0
     while attempts < 4:
-        name = input("Enter name")
-        password = input("Enter password")
+        name = input("Enter name: ")
+        password = input("Enter password: ")
 
         #check if user exists in database
         if name in users and users[name] == password:
@@ -18,7 +65,7 @@ def log_in():
             is_done = False
     
             while not is_done:
-                is_done = user_menu(is_done)
+                is_done = user_menu(is_done, name)
                 
             attempts = 4
         else:
