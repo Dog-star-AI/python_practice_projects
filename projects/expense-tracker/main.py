@@ -1,6 +1,9 @@
 #Expense Tracking system
 import json
 
+def user_options(is_done):
+    option = int(input("How can we help you today?\n1.View expenses\n2.Add new expense\n3.Remove expense\4.Update budget\n5.Change passoword\n6.Remove account\n"))
+
 def log_in():
     attempts = 0
     while attempts < 4:
@@ -9,7 +12,14 @@ def log_in():
 
         #check if user exists in database
         if name in users and users[name] == password:
+
             print("***************Logged in successfully****************")
+            #give user a menu and pass is_done to maintain the exit from the menu        
+            is_done = False
+    
+            while not is_done:
+                is_done = user_menu(is_done)
+                
             attempts = 4
         else:
             #exit when user reach attempt limit

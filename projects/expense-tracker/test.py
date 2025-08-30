@@ -1,10 +1,14 @@
-attempt = 0
+def change_value(x):
+    print(f"This is the value of x now: {x}")
+    x = 50
+    print(f"This is the value of x later: {x}")
+    return x
 
-while attempt < 3:
-    try:
-        age = int(input("Enter age"))
-        attempt = 3
-    except ValueError:
-        print("Error, try again")
-        attempt += 1
-print("Done")
+x = 10
+
+print(f"The value of x is: {x}")
+
+x = change_value(x)
+
+print(f"The new value of x is: {x}")
+
