@@ -22,7 +22,7 @@ def user_menu(is_done, name):
             return is_done
         case 6:
             remove_account(name)
-            return is_done
+            return not is_done
         case 7:
             return not is_done
 
@@ -40,15 +40,38 @@ def update_budget(name):
     print("This will update budget")
 
 def change_password(name):
-    print("This will change the password")
+    
+    while True:
+        new_password = input("Enter new password: ")
+
+        if new_password == users[name]:
+            print("password same as old passowrd, try a different one")
+        else:
+            users[name] = new_password
+
+            #update database
+            with open("users.json", "w") as f:
+                json.dump(users, f, indent=4)
+
+            print("*******************Passowrd updated successfully!!***********************")
+
+            break #exit loop
+
 
 def remove_account(name):
-    
-    users.pop(name)
 
-    #update database
-    with open("users.json", "w") as f:
-        json.dump(users, f, indent=4)
+    option_one = input("Are you sure?Yes/No: ")
+    option_one.lower()
+    if option_one == 'yes':
+        users.pop(name) 
+
+        #update database 
+        with open("users.json", "w") as f: 
+            json.dump(users, f, indent=4) 
+
+        print("*********Account deleted successfully!!**********\n")
+
+        
 
 
 def log_in():
