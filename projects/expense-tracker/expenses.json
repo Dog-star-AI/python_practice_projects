@@ -1,3 +1,6 @@
 {
-  "sebata": { "budget": 0.0 }
+    "sebata": {
+        "budget": 0.0,
+        "car": 50000.0
+    }
 }

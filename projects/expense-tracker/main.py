@@ -31,16 +31,34 @@ def view_expense(name):
     print("This will view expenses")
 
 def add_expense(name):
-    print("This will add new expenses")
+    expense_name = input("Enter name of expense: ")
+    expense_price = float(input("Enter cost of expense: "))
+    
+    expenses[name][expense_name] = expense_price
+    update_expenses_database()
+
+    print("*************New expense added successfully!!***************")
+
+def update_users_database():
+    with open("users.json", "w") as f:
+        json.dump(users, f, indent=4)
+
+def update_expenses_database():
+    with open("expenses.json", "w") as f:
+        json.dump(expenses, f, indent=4)
 
 def remove_expense(name):
-    print("This will remove the expenses")
+    print("something")
 
 def update_budget(name):
-    print("This will update budget")
+    new_budget = float(input(f"Current budget: {expenses[name]["budget"]}\nEnter new budget: "))
+
+    expenses[name]["budget"] = new_budget
+
+    update_expenses_database()
+    print("***********Budget updated successfully!!*********************\n")
 
 def change_password(name):
-    
     while True:
         new_password = input("Enter new password: ")
 
@@ -64,10 +82,14 @@ def remove_account(name):
     option_one.lower()
     if option_one == 'yes':
         users.pop(name) 
+        expenses.pop(name)
 
         #update database 
         with open("users.json", "w") as f: 
             json.dump(users, f, indent=4) 
+
+        with open("expenses.json", "w") as f:
+            json.dump(expenses, f, indent=4)
 
         print("*********Account deleted successfully!!**********\n")
 
@@ -120,10 +142,14 @@ def sign_up():
             print("*Congratulations!! You're now part of the Mongol Family*")
             print("********************************************************")
             users[name] = password
+            expenses[name] = {"budget":0.0}
 
             #update database 
             with open("users.json", "w") as f:
                 json.dump(users, f, indent=4)
+
+            with open("expenses.json", "w") as f:
+                json.dump(expenses, f, indent=4)
 
             attempts = 4
             
@@ -132,6 +158,9 @@ def sign_up():
 
 with open("users.json", "r") as f:
     users = json.load(f)
+
+with open("expenses.json", "r") as f:
+    expenses = json.load(f)
 
 is_exit = False
 y = True
