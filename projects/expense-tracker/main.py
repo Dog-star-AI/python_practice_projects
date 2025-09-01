@@ -1,6 +1,7 @@
 #Expense Tracking system
 import json
 
+#menu for logged in user
 def user_menu(is_done, name):
     option = int(input("How can we help you today?\n1.View expenses\n2.Add new expense\n3.Remove expense\n4.Update budget\n5.Change password\n6.Remove account\n7.Exit\n"))
 
@@ -22,13 +23,47 @@ def user_menu(is_done, name):
             return is_done
         case 6:
             remove_account(name)
-            return not is_done
+            return not is_done #exit after removing
         case 7:
-            return not is_done
+            return not is_done #exit option
 
+def display_expenses(name):
+    expense_number = 1
+    total_costs = 0
+    budget_cost_difference = 0
+
+    print(f"*************{name}'s expenses and costs***************")
+    print("Expenses                Costs                           ")
+    print("                                                        ")
+    for x in expenses[name]:
+        #skip displaying the budget
+        if expenses[name][x] == expenses[name]["budget"]:
+            continue
+        
+        print(f"{expense_number}  {x}     {expenses[name][x]}")
+        total_costs += expenses[name][x]
+        expense_number += 1
+
+    budget_cost_difference = expenses[name]["budget"] - total_costs
+
+    print("********************************************************")
+    print(f"Total costs: {total_costs}          budget: {expenses[name]["budget"]}")
+    print("********************************************************")
+
+    if budget_cost_difference < 0:
+        print(f"You're under budget by {budget_cost_difference}. Stop spending money!!")
+    else:
+        print(f"We are crusing nicely! You have {budget_cost_difference} to spare!")
+
+    print("********************************************************")
+    
+    
+    
+
+#START of logged in user menu options
 
 def view_expense(name):
-    print("This will view expenses")
+    display_expenses(name)
 
 def add_expense(name):
     expense_name = input("Enter name of expense: ")
@@ -37,18 +72,14 @@ def add_expense(name):
     expenses[name][expense_name] = expense_price
     update_expenses_database()
 
-    print("*************New expense added successfully!!***************")
+    print("*****************New expense added successfully!!***************")
 
-def update_users_database():
-    with open("users.json", "w") as f:
-        json.dump(users, f, indent=4)
-
-def update_expenses_database():
-    with open("expenses.json", "w") as f:
-        json.dump(expenses, f, indent=4)
 
 def remove_expense(name):
-    print("something")
+    display_expenses(name)
+    expense_number = int(input("Which expense do you want to remove: "))
+
+
 
 def update_budget(name):
     new_budget = float(input(f"Current budget: {expenses[name]["budget"]}\nEnter new budget: "))
@@ -84,16 +115,20 @@ def remove_account(name):
         users.pop(name) 
         expenses.pop(name)
 
-        #update database 
-        with open("users.json", "w") as f: 
-            json.dump(users, f, indent=4) 
-
-        with open("expenses.json", "w") as f:
-            json.dump(expenses, f, indent=4)
+        update_users_database()
+        update_expenses_database()
 
         print("*********Account deleted successfully!!**********\n")
-
+#END of logged in user menu options
         
+#Updating databases
+def update_users_database():
+    with open("users.json", "w") as f:
+        json.dump(users, f, indent=4)
+
+def update_expenses_database():
+    with open("expenses.json", "w") as f:
+        json.dump(expenses, f, indent=4)
 
 
 def log_in():
@@ -155,7 +190,7 @@ def sign_up():
             
 
 
-
+#Load users and expenses json files
 with open("users.json", "r") as f:
     users = json.load(f)
 
@@ -170,27 +205,24 @@ print("*********Welcome to Mongol Expense Tracking***********")
 print("******************************************************")
 print("\n")
 
-while not is_exit:
-    #handling user input
-    while y:
-        try:
-            option = int(input("1) Log in\n2) Sign up\n3) Exit program\n"))
+#handling user 
+while True:
+    try:
+        option = int(input("1) Log in\n2) Sign up\n3) Exit program\n"))
 
-            match option:
-                case 1:
-                    log_in()
-                case 2:
-                    sign_up()
-                case 3:
-                    is_exit = True 
-            y = False
-        except ValueError:
-            print("Please enter correct option.")
-        else:
-            if option > 3:
-                print("Enter number between 1-3")
-    is_exit = True
-    
+        match option:
+            case 1:
+                log_in()
+            case 2:
+                sign_up()
+            case 3:
+                break
+    except ValueError:
+        print("Please enter number.")
+    else:
+        if option > 3:
+            print("Enter number between 1-3")
+
 print("***********************************************************")
 print("Thanks for using Mongol Expense Tracker. Please call again!")
 print("***********************************************************")
