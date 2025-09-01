@@ -78,8 +78,17 @@ def add_expense(name):
 def remove_expense(name):
     display_expenses(name)
     expense_number = int(input("Which expense do you want to remove: "))
+    expense_index = list(expenses[name])[expense_number]
+    user_confirm = input(f"Are you sure you want to remove {expenses[name][expense_index]}?(yes/no): ")
+    
+    if user_confirm.lower() == 'yes':
+        expenses[name].pop(expense_index)
 
-
+        update_expenses_database()
+        
+        print("***********Expense removed successfully!!!*************")
+    else:
+        print("*****************Removal cancelled!********************")
 
 def update_budget(name):
     new_budget = float(input(f"Current budget: {expenses[name]["budget"]}\nEnter new budget: "))
