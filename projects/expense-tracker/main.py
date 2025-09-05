@@ -206,8 +206,6 @@ with open("users.json", "r") as f:
 with open("expenses.json", "r") as f:
     expenses = json.load(f)
 
-is_exit = False
-y = True
 
 print("******************************************************")
 print("*********Welcome to Mongol Expense Tracking***********")
