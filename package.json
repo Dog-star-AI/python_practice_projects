@@ -1,0 +1,30 @@
+{
+  "name": "personal-finance-task-manager",
+  "version": "1.0.0",
+  "description": "A comprehensive personal finance and task management web application",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'Static site - no build required'",
+    "deploy": "netlify deploy --prod"
+  },
+  "keywords": [
+    "finance",
+    "expense-tracker",
+    "todo-list",
+    "task-management",
+    "netlify",
+    "neon",
+    "postgresql"
+  ],
+  "author": "Personal Finance Manager",
+  "license": "MIT",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.7.2",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+}

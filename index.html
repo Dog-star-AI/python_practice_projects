@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance & Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>📊 Personal Manager</h1>
+            </div>
+            <div class="nav-links">
+                <button id="loginBtn" class="btn btn-outline">Login</button>
+                <button id="signupBtn" class="btn btn-primary">Sign Up</button>
+                <button id="logoutBtn" class="btn btn-outline" style="display: none;">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Login/Signup Section -->
+        <section id="authSection" class="auth-section">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <button id="loginTab" class="tab-btn active">Login</button>
+                    <button id="signupTab" class="tab-btn">Sign Up</button>
+                </div>
+
+                <div id="loginForm" class="auth-form">
+                    <h2>Welcome Back!</h2>
+                    <form id="loginFormElement">
+                        <input type="text" id="loginUsername" placeholder="Username" required>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+
+                <div id="signupForm" class="auth-form" style="display: none;">
+                    <h2>Create Account</h2>
+                    <form id="signupFormElement">
+                        <input type="text" id="signupUsername" placeholder="Username" required>
+                        <input type="password" id="signupPassword" placeholder="Password" required>
+                        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboardSection" class="dashboard" style="display: none;">
+            <div class="dashboard-header">
+                <h2 id="welcomeMessage">Welcome!</h2>
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3 id="totalExpenses">$0</h3>
+                        <p>Total Expenses</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="budgetRemaining">$0</h3>
+                        <p>Budget Remaining</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="activeTasks">0</h3>
+                        <p>Active Tasks</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="app-switcher">
+                    <button id="expenseTrackerBtn" class="app-btn active">💰 Expense Tracker</button>
+                    <button id="todoListBtn" class="app-btn">📝 To-Do List</button>
+                </div>
+
+                <!-- Expense Tracker App -->
+                <div id="expenseTracker" class="app-content">
+                    <div class="app-header">
+                        <h3>Expense Tracker</h3>
+                        <div class="app-actions">
+                            <button id="addExpenseBtn" class="btn btn-primary">+ Add Expense</button>
+                            <button id="updateBudgetBtn" class="btn btn-outline">Update Budget</button>
+                        </div>
+                    </div>
+
+                    <div class="expense-summary">
+                        <div class="budget-info">
+                            <span>Budget: $<span id="currentBudget">0</span></span>
+                            <span>Spent: $<span id="totalSpent">0</span></span>
+                            <span class="budget-status" id="budgetStatus">Within Budget</span>
+                        </div>
+                    </div>
+
+                    <div id="expensesList" class="expenses-list">
+                        <!-- Expenses will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- To-Do List App -->
+                <div id="todoList" class="app-content" style="display: none;">
+                    <div class="app-header">
+                        <h3>To-Do List</h3>
+                        <div class="app-actions">
+                            <button id="addTaskBtn" class="btn btn-primary">+ Add Task</button>
+                        </div>
+                    </div>
+
+                    <div class="task-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="ongoing">Ongoing</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                        <button class="filter-btn" data-filter="paused">Paused</button>
+                        <button class="filter-btn" data-filter="abandoned">Abandoned</button>
+                    </div>
+
+                    <div id="tasksList" class="tasks-list">
+                        <!-- Tasks will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="addExpenseModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Add New Expense</h3>
+            <form id="addExpenseForm">
+                <input type="text" id="expenseName" placeholder="Expense name" required>
+                <input type="number" id="expenseAmount" placeholder="Amount" step="0.01" required>
+                <input type="date" id="expenseDate" required>
+                <textarea id="expenseDescription" placeholder="Description (optional)"></textarea>
+                <button type="submit" class="btn btn-primary">Add Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="updateBudgetModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Update Budget</h3>
+            <form id="updateBudgetForm">
+                <input type="number" id="newBudget" placeholder="New budget amount" step="0.01" required>
+                <button type="submit" class="btn btn-primary">Update Budget</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Add New Task</h3>
+            <form id="addTaskForm">
+                <input type="text" id="taskName" placeholder="Task name" required>
+                <textarea id="taskDescription" placeholder="Task description" required></textarea>
+                <input type="date" id="taskStartDate" required>
+                <input type="date" id="taskEndDate" required>
+                <button type="submit" class="btn btn-primary">Add Task</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
